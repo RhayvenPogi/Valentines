@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💜 Valentine Card</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video id="bg-video" class="video-background" autoplay loop muted playsinline>
+        <source src="elements/bg/bg.mp4" type="video/mp4">
+    </video>
+    <div class="grain-overlay"></div>
+    <audio id="bg-music" loop>
+        <source src="elements/bg/wave to earth - love. (Official Lyric Video).mp3" type="audio/mpeg">
+    </audio>
+    <canvas id="constellation-canvas"></canvas>
+
+    <!-- ==============================
+         SCREEN 1: Ribbon Gift Box
+    ============================== -->
+    <div id="opening-screen" class="screen active">
+        <div class="screen-content">
+            <div class="gift-wrapper" id="gift-wrapper">
+                <div class="gift-box"></div>
+                <div class="ribbon-vertical"></div>
+                <div class="ribbon-horizontal"></div>
+                <div class="bow">
+                    <div class="bow-loop bow-loop-left"></div>
+                    <div class="bow-loop bow-loop-right"></div>
+                    <div class="bow-center"></div>
+                    <div class="bow-tail bow-tail-left"></div>
+                    <div class="bow-tail bow-tail-right"></div>
+                </div>
+            </div>
+            <div class="click-prompt" id="click-prompt">Click to Unwrap</div>
+        </div>
+    </div>
+
+    <!-- ==============================
+         SCREEN 2: Two Gifts (flower + stuffy)
+    ============================== -->
+    <div id="gifts-screen" class="screen">
+        <div class="screen-content">
+            <p class="opening-tagline">Two surprises are waiting for you...</p>
+            <div class="gifts-row">
+
+                <!-- Gift 1: Flower → Snake Game -->
+                <div class="gift-item" id="gift-flower">
+                    <div class="gift-glow glow-pink"></div>
+                    <div class="gift-img-wrap">
+                        <img src="elements/gifts/flower.gif" alt="Flower" class="gift-img"
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                        <div class="gift-emoji-fallback">🌸</div>
+                    </div>
+                    <div class="gift-name">A flower for you</div>
+                    <div class="gift-cta">Click to play 💜</div>
+                    <div class="gift-done" id="snake-badge">✓ Completed!</div>
+                </div>
+
+                <!-- Gift 2: Stuffed Toy → Catch Hearts -->
+                <div class="gift-item locked" id="gift-stuffy">
+                    <div class="gift-glow glow-purple"></div>
+                    <div class="gift-img-wrap">
+                        <img src="elements/gifts/gift.gif" alt="Stuffed Toy" class="gift-img"
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                        <div class="gift-emoji-fallback">🧸</div>
+                    </div>
+                    <div class="gift-name">And a little friend</div>
+                    <div class="gift-cta" id="stuffy-cta">Open Gift 1 first 🔒</div>
+                    <div class="gift-done" id="catch-badge">✓ Completed!</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================
+         SCREEN 3: Snake Game (Gift 1)
+    ============================== -->
+    <div id="game-screen" class="screen">
+        <div class="screen-content">
+            <div class="game-grid">
+                <div class="game-info">
+                    <h2 class="section-title">Catch 3 Hearts 💜</h2>
+                    <div class="game-description">
+                        <h3>A Little Game, Just for You</h3>
+                        <p>🎮 Use arrow keys to guide your way</p>
+                        <p>💜 Collect 3 hearts to win</p>
+                        <p>⚠️ Don't hit the walls or yourself</p>
+                        <p>✨ With every heart, you grow stronger</p>
+                    </div>
+                    <div class="game-stats">
+                        <p class="score-display">Hearts: <span id="score">0</span>/3</p>
+                    </div>
+                </div>
+                <div class="game-container">
+                    <div id="game-start" class="game-start-screen">
+                        <div class="start-content">
+                            <h3>Ready to Play?</h3>
+                            <p>Collect 3 hearts to unlock Gift 2!</p>
+                            <button class="start-game-btn" id="start-game-btn">Start Game 💜</button>
+                        </div>
+                    </div>
+                    <canvas id="snakeCanvas" width="600" height="600"></canvas>
+                    <div id="game-over" class="game-over-message hidden">
+                        <p class="game-over-text">Oops! Try Again 💜</p>
+                        <p class="game-score">Score: <span id="final-score">0</span>/3</p>
+                        <button class="restart-game-btn" id="restart-game-btn">Restart</button>
+                    </div>
+                    <div id="game-victory" class="game-victory-message hidden">
+                        <p class="victory-text">Perfect! 💜</p>
+                        <p class="victory-message">Gift 2 is now unlocked!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================
+         SCREEN 4: Catch Hearts (Gift 2)
+    ============================== -->
+    <div id="catch-screen" class="screen">
+        <div class="screen-content">
+            <div class="game-grid">
+                <div class="game-info">
+                    <h2 class="section-title">Catch My Love 🧸</h2>
+                    <div class="game-description">
+                        <h3>Catch Everything I Give You</h3>
+                        <p>🖱️ Move your mouse or finger to move the basket</p>
+                        <p>💜 Catch 10 falling hearts to continue</p>
+                        <p>💔 Miss 5 and we start over</p>
+                        <p>✨ Every heart = a reason I love you</p>
+                    </div>
+                    <div class="game-stats">
+                        <p class="score-display">Caught: <span id="catch-score">0</span>/10</p>
+                        <p class="score-display missed-display">Missed: <span id="catch-missed">0</span>/5</p>
+                    </div>
+                </div>
+                <div class="game-container">
+                    <div id="catch-start" class="game-start-screen">
+                        <div class="start-content">
+                            <h3>Ready? 🧸</h3>
+                            <p>Catch 10 hearts before 5 slip away!</p>
+                            <button class="start-game-btn" id="start-catch-btn">Start Game 💜</button>
+                        </div>
+                    </div>
+                    <canvas id="catchCanvas" width="600" height="600"></canvas>
+                    <div id="catch-over" class="game-over-message hidden">
+                        <p class="game-over-text">So close! 💜</p>
+                        <p class="game-score">Caught: <span id="catch-final">0</span>/10</p>
+                        <button class="restart-game-btn" id="restart-catch-btn">Try Again</button>
+                    </div>
+                    <div id="catch-victory" class="game-victory-message hidden">
+                        <p class="victory-text">You caught them all! 💜</p>
+                        <p class="victory-message">Opening the next surprise...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================
+         SCREEN 5: Polaroid Memories
+    ============================== -->
+    <div id="memories-screen" class="screen">
+        <div class="screen-content scrollable">
+            <h2 class="section-title">What's meant for us always finds its way back.</h2>
+            <div class="hanging-rope"></div>
+            <div class="polaroid-grid-container">
+                <div class="polaroid-grid">
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="-3"><div class="polaroid-image"><img src="elements/polaroids/photo1.png"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="2"><div class="polaroid-image"><img src="elements/polaroids/photo2.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="-5"><div class="polaroid-image"><img src="elements/polaroids/photo3.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="4"><div class="polaroid-image"><img src="elements/polaroids/photo4.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="-2"><div class="polaroid-image"><img src="elements/polaroids/photo5.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="3"><div class="polaroid-image"><img src="elements/polaroids/photo6.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="-3"><div class="polaroid-image"><img src="elements/polaroids/photo1.png"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="2"><div class="polaroid-image"><img src="elements/polaroids/photo2.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="-5"><div class="polaroid-image"><img src="elements/polaroids/photo3.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="4"><div class="polaroid-image"><img src="elements/polaroids/photo4.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="-2"><div class="polaroid-image"><img src="elements/polaroids/photo5.jpg"></div></div></div>
+                    <div class="polaroid-wrapper"><div class="clothespin"></div><div class="polaroid" data-rotation="3"><div class="polaroid-image"><img src="elements/polaroids/photo6.jpg"></div></div></div>
+                </div>
+            </div>
+            <button class="continue-btn">Click to Continue →</button>
+        </div>
+    </div>
+
+    <!-- ==============================
+         SCREEN 6: Prank Loading Screen
+    ============================== -->
+    <div id="loading-screen" class="screen">
+        <div class="screen-content">
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p class="loading-text" id="loading-text">Loading...</p>
+                <div class="loading-bar-container">
+                    <div class="loading-bar" id="loading-bar"></div>
+                </div>
+                <p class="loading-percentage" id="loading-percentage">0%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================
+         SCREEN 7: Valentine Question
+    ============================== -->
+    <div id="question-screen" class="screen">
+        <div class="screen-content">
+            <div class="question-container">
+                <div class="question-card">
+                    <h2 class="valentine-question">Will you be my Valentine?</h2>
+                    <p class="question-subtitle">I would be honored if you'd say yes</p>
+                    <div class="valentine-buttons">
+                        <button class="valentine-btn yes-btn" id="yes-btn"><span class="btn-text">Yes, I will!</span></button>
+                        <button class="valentine-btn no-btn" id="no-btn"><span class="btn-text">Not sure</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================
+         SCREEN 8: Letter
+    ============================== -->
+    <div id="letter-screen" class="screen">
+        <div class="screen-content">
+            <div class="letter-paper">
+                <div class="wax-seal">💜</div>
+                <div class="letter-content">
+                    <p class="letter-date">February 14, 2026</p>
+                    <p class="letter-greeting">My Dearest Venice,</p>
+                    <p>Life took us on different paths for a while, but somehow, it led us back to each other. And I believe that happened for a reason.</p>
+                    <p>Time changed us. We grew, we learned, we became stronger. Yet even through all those days apart, something about you always stayed with me—quiet, steady, unforgettable. My heart never forgot how it feels to choose you.</p>
+                    <p>Now, here we are again. Not the same people we once were, but maybe better—more patient, more understanding, and more grateful for what we have. I don't look at this as going back. I see it as moving forward, together, with clearer hearts and open hands.</p>
+                    <p>I don't promise perfection. I promise honesty, effort, laughter, and care. I promise to value you, to listen, and to choose you—not just today, but every day I get the chance.</p>
+                    <p>This letter, this moment, this invitation… it's all for you.<br>Because you matter to me. Because you always have.</p>
+                    <p class="letter-closing">Forever yours,</p>
+                    <p class="letter-signature" id="letter-signature">
+                        rhayven
+                        <span class="secret-message">my heart chose you first 💜</span>
+                    </p>
+                </div>
+            </div>
+            <button class="continue-btn final-continue">Continue to Final Message →</button>
+        </div>
+    </div>
+
+    <!-- ==============================
+         SCREEN 9: Final
+    ============================== -->
+    <div id="final-screen" class="screen">
+        <div class="screen-content">
+            <!-- Close button — always visible, no timer -->
+            <button id="final-close-btn" class="final-close-btn">&times;</button>
+            <div class="final-message-container">
+                <h1 class="final-love-message">All ways. Always you.</h1>
+                <div class="visualizer-container">
+                    <canvas id="visualizer-canvas"></canvas>
+                </div>
+                <div class="animated-hearts-container">
+                    <div class="animated-heart heart-1"></div>
+                    <div class="animated-heart heart-2"></div>
+                    <div class="animated-heart heart-3"></div>
+                    <div class="animated-heart heart-4"></div>
+                    <div class="animated-heart heart-5"></div>
+                    <div class="animated-heart heart-6"></div>
+                    <div class="animated-heart heart-7"></div>
+                    <div class="animated-heart heart-8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Polaroid Modal -->
+    <div id="polaroid-modal" class="modal">
+        <span class="modal-close">&times;</span>
+        <div class="modal-polaroid">
+            <div class="modal-image"></div>
+            <div class="modal-caption"></div>
+        </div>
+    </div>
+
+    <!-- Close Gift Modal -->
+    <div id="close-gift-modal" class="modal">
+        <div class="close-gift-card">
+            <span class="close-gift-exit" id="close-gift-exit">&times;</span>
+            <h2 class="close-gift-title">Would you like to close the gift? 💜</h2>
+            <p class="close-gift-subtitle">You can experience it all over again from the beginning</p>
+            <div class="close-gift-buttons">
+                <button class="close-gift-btn yes-close-btn" id="yes-close-btn">Yes, close it</button>
+                <button class="close-gift-btn no-close-btn" id="no-close-btn">No, stay here</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
