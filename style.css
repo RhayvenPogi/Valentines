@@ -465,26 +465,187 @@ body {
 }
 
 /* ==========================================
-   VALENTINE QUESTION
+   HAPPY VALENTINE'S DAY SCREEN
    ========================================== */
-.question-container { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-.question-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(254,252,243,0.95));
-    padding: 60px 80px; border-radius: 30px;
-    box-shadow: 0 10px 40px rgba(107,73,132,0.2), 0 0 0 1px rgba(232,180,240,0.3);
-    max-width: 600px; text-align: center; position: relative; overflow: hidden;
+.valentine-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
-.valentine-question { font-family: 'Brush Script MT', cursive; font-size: 3.2rem; color: #6b4984; margin-bottom: 15px; line-height: 1.3; position: relative; z-index: 1; }
-.question-subtitle { font-size: 1.1rem; color: #8b7355; margin-bottom: 40px; font-style: italic; position: relative; z-index: 1; }
-.valentine-buttons { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-.valentine-btn { font-family: 'Georgia', serif; font-size: 1.3rem; padding: 18px 45px; border: none; border-radius: 50px; cursor: pointer; transition: all 0.4s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.15); min-width: 160px; }
-.yes-btn { color: #fff; background: linear-gradient(135deg, #d946a6, #ff1493, #ff69b4); background-size: 200% 200%; animation: gradientShift 3s ease infinite; }
-@keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-.yes-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 30px rgba(255,20,147,0.4); }
-.yes-btn.clicked { animation: heartBeat 0.5s ease; }
-@keyframes heartBeat { 0%,100%{transform:scale(1)} 25%{transform:scale(1.2)} 50%{transform:scale(1.1)} 75%{transform:scale(1.25)} }
-.no-btn { color: #6b4984; background: linear-gradient(135deg, #f5f5f5, #e8e8e8); border: 2px solid rgba(107,73,132,0.2); }
-.no-btn:hover { transform: translateY(-2px); }
+
+/* Floating petals behind card */
+.vday-petals-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.vday-petal {
+    position: absolute;
+    top: -60px;
+    animation: petalFall linear infinite;
+}
+
+@keyframes petalFall {
+    0%   { top: -60px; opacity: 0; transform: translateX(0) rotate(0deg); }
+    8%   { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { top: 110vh; opacity: 0; transform: translateX(60px) rotate(360deg); }
+}
+
+/* The card itself */
+.vday-card {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(145deg, rgba(255,255,255,0.97) 0%, rgba(255,240,255,0.97) 100%);
+    border: 1px solid rgba(232,180,240,0.5);
+    border-radius: 36px;
+    padding: 60px 70px;
+    max-width: 560px;
+    width: 90%;
+    box-shadow:
+        0 0 0 1px rgba(232,180,240,0.2),
+        0 20px 60px rgba(107,73,132,0.25),
+        0 0 80px rgba(232,180,240,0.15);
+    text-align: center;
+    animation: cardReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes cardReveal {
+    0%   { opacity: 0; transform: scale(0.7) translateY(40px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Sparkles */
+.vday-sparkles {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    border-radius: 36px;
+    overflow: hidden;
+}
+
+.sparkle {
+    position: absolute;
+    color: #d89ee8;
+    font-size: 1.1rem;
+    animation: sparkleTwinkle 2.5s ease-in-out infinite;
+}
+.s1 { top: 12%; left: 8%;  animation-delay: 0s; }
+.s2 { top: 8%;  left: 80%; animation-delay: 0.5s; }
+.s3 { top: 78%; left: 6%;  animation-delay: 1s; }
+.s4 { top: 82%; left: 84%; animation-delay: 1.5s; }
+.s5 { top: 40%; left: 3%;  animation-delay: 0.8s; font-size: 0.75rem; }
+.s6 { top: 45%; left: 93%; animation-delay: 1.3s; font-size: 0.75rem; }
+
+@keyframes sparkleTwinkle {
+    0%,100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); }
+    50%      { opacity: 1;   transform: scale(1.3) rotate(20deg); }
+}
+
+/* Heart icon */
+.vday-heart-icon {
+    font-size: 4.5rem;
+    display: block;
+    margin-bottom: 20px;
+    animation: heartPop 1s cubic-bezier(0.34,1.56,0.64,1) 0.4s both, heartBeatSoft 3s ease-in-out 1.5s infinite;
+    filter: drop-shadow(0 0 18px rgba(168,85,247,0.5));
+}
+
+@keyframes heartPop {
+    0%   { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+@keyframes heartBeatSoft {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.1); }
+}
+
+/* Title */
+.vday-title {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 3.4rem;
+    color: #6b4984;
+    line-height: 1.15;
+    margin-bottom: 10px;
+    animation: fadeInUp 0.8s ease 0.6s both;
+    text-shadow: 0 2px 12px rgba(107,73,132,0.2);
+}
+
+/* Name */
+.vday-name {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2rem;
+    color: #a855f7;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease 0.8s both;
+    letter-spacing: 0.03em;
+}
+
+/* Message */
+.vday-message {
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    color: #8b6a9a;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    animation: fadeInUp 0.8s ease 1s both;
+}
+
+/* Continue button */
+.vday-continue-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Georgia', serif;
+    font-size: 1.15rem;
+    color: #fff;
+    background: linear-gradient(135deg, #7c3aad 0%, #a855f7 50%, #c084fc 100%);
+    background-size: 200% 200%;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 42px;
+    cursor: pointer;
+    animation: fadeInUp 0.8s ease 1.2s both, gradientDrift 4s ease infinite 1.5s;
+    box-shadow: 0 6px 25px rgba(107,73,132,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vday-continue-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 10px 35px rgba(107,73,132,0.55);
+}
+
+.vday-continue-btn.btn-clicked {
+    animation: btnPulse 0.5s ease forwards;
+}
+
+.btn-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+.vday-continue-btn:hover .btn-arrow {
+    transform: translateX(5px);
+}
+
+@keyframes gradientDrift {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+@keyframes btnPulse {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.12); }
+    70%  { transform: scale(0.96); }
+    100% { transform: scale(1); opacity: 0.7; }
+}
 
 /* ==========================================
    LETTER
@@ -711,10 +872,9 @@ body {
     .game-info .section-title { text-align: center; }
     .game-description { text-align: center; }
     #snakeCanvas, #catchCanvas { max-width: 100%; width: 100%; height: auto; }
-    .question-card { padding: 40px 30px; }
-    .valentine-question { font-size: 2.4rem; }
-    .valentine-buttons { flex-direction: column; gap: 15px; }
-    .valentine-btn { width: 100%; max-width: 260px; }
+    .vday-card { padding: 45px 30px; }
+    .vday-title { font-size: 2.6rem; }
+    .vday-name { font-size: 1.6rem; }
     .letter-paper { padding: 35px 25px; margin: 15px; }
     .final-love-message { font-size: 2.5rem; }
     .polaroid { width: 200px; }
@@ -730,6 +890,10 @@ body {
     .gift-name { font-size: 1.1rem; }
     .opening-tagline { font-size: 1.3rem; margin-bottom: 25px; }
     .gift-cta { font-size: 0.8rem; }
+    .vday-title { font-size: 2rem; }
+    .vday-name { font-size: 1.3rem; }
+    .vday-message { font-size: 0.95rem; }
+    .vday-card { padding: 40px 24px; border-radius: 24px; }
     .final-love-message { font-size: 2rem; padding: 0 20px; }
     .section-title { font-size: 1.8rem; }
     .letter-paper { padding: 28px 20px; }

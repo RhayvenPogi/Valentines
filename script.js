@@ -9,7 +9,7 @@
 // 3: catch-screen    (catch hearts — gift 2)
 // 4: memories-screen (polaroids)
 // 5: loading-screen  (prank loading)
-// 6: question-screen (valentine question)
+// 6: valentine-screen (happy valentine's day)
 // 7: letter-screen
 // 8: final-screen
 
@@ -20,7 +20,7 @@ const screens = [
     document.getElementById('catch-screen'),
     document.getElementById('memories-screen'),
     document.getElementById('loading-screen'),
-    document.getElementById('question-screen'),
+    document.getElementById('valentine-screen'),
     document.getElementById('letter-screen'),
     document.getElementById('final-screen')
 ];
@@ -198,6 +198,7 @@ function onScreenEnter(index) {
     if (index === 2) setTimeout(initSnakeGame, 300);  // snake
     if (index === 3) setTimeout(initCatchGame, 300);  // catch
     if (index === 5) setTimeout(startPrankLoading, 300);  // prank loading
+    if (index === 6) setTimeout(initValentineScreen, 300);  // happy valentine's day
     if (index === 8) setTimeout(() => { startFinalHeartAnimation(); initAudioVisualizer(); }, 300);  // final
 }
 
@@ -325,14 +326,46 @@ function startPrankLoading() {
             loadingBar.style.background = 'linear-gradient(90deg, #e8b4f0, #d89ee8, #c084fc)';
         }, 1500);
         
-        // Move to question
+        // Move to valentine screen
         setTimeout(() => {
-            loadingText.textContent = "Proceeding to your question...";
+            loadingText.textContent = "Something special is waiting...";
             setTimeout(() => {
                 heartContainer.remove();
                 goToScreen(6);
             }, 600);
         }, 2500);
+    }
+}
+
+// ==========================================
+// HAPPY VALENTINE'S DAY SCREEN
+// ==========================================
+function initValentineScreen() {
+    // Spawn floating petals/hearts
+    const container = document.getElementById('vday-petals');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const symbols = ['💜', '💕', '✦', '🌸', '💖', '✿', '♡', '💗'];
+    for (let i = 0; i < 22; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'vday-petal';
+        petal.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDuration = (4 + Math.random() * 6) + 's';
+        petal.style.animationDelay = (Math.random() * 4) + 's';
+        petal.style.fontSize = (14 + Math.random() * 22) + 'px';
+        petal.style.opacity = (0.3 + Math.random() * 0.5).toString();
+        container.appendChild(petal);
+    }
+
+    // Wire up continue button
+    const btn = document.getElementById('vday-continue-btn');
+    if (btn) {
+        btn.onclick = () => {
+            btn.classList.add('btn-clicked');
+            setTimeout(() => goToNextScreen(), 500);
+        };
     }
 }
 
@@ -636,43 +669,6 @@ startCatchBtn?.addEventListener('click', startCatchGame);
 restartCatchBtn?.addEventListener('click', () => { initCatchGame(); startCatchGame(); });
 
 // ==========================================
-// VALENTINE QUESTION
-// ==========================================
-const yesBtn = document.getElementById('yes-btn');
-const noBtn  = document.getElementById('no-btn');
-let noClickCount = 0;
-
-yesBtn?.addEventListener('click', function() {
-    this.classList.add('clicked');
-    setTimeout(goToNextScreen, 500);
-});
-
-noBtn?.addEventListener('click', function(e) {
-    e.preventDefault(); noClickCount++;
-    moveNoButton(this); growYesButton(); updateNoText(this);
-});
-
-noBtn?.addEventListener('mouseenter', function() { if (noClickCount >= 2) moveNoButton(this); });
-
-function moveNoButton(btn) {
-    const card = document.querySelector('.question-card').getBoundingClientRect();
-    const bw = btn.offsetWidth, bh = btn.offsetHeight;
-    const maxX = window.innerWidth - bw - 40, maxY = window.innerHeight - bh - 40;
-    let rx, ry, att = 0;
-    do { rx = Math.random()*maxX+20; ry = Math.random()*maxY+20; att++; }
-    while (att<10 && rx>card.left-100 && rx<card.right+100 && ry>card.top-100 && ry<card.bottom+100);
-    btn.style.position='fixed'; btn.style.left=rx+'px'; btn.style.top=ry+'px'; btn.style.transition='all 0.3s ease';
-}
-
-function growYesButton() { yesBtn.style.transform = `scale(${Math.min(1+noClickCount*0.2,1.8)})`; }
-
-function updateNoText(btn) {
-    const texts=['Not sure','Maybe not...','Are you sure?','Think again...','Really?','Please reconsider','One more chance?','Pretty please? 🥺','I\'m begging you 💔'];
-    if (noClickCount < texts.length) btn.querySelector('.btn-text').textContent = texts[noClickCount];
-    btn.style.transform = `scale(${Math.max(0.5, 1-noClickCount*0.08)})`;
-}
-
-// ==========================================
 // CONTINUE BUTTONS (memories → loading etc)
 // ==========================================
 continueButtons.forEach(btn => btn.addEventListener('click', e => { e.preventDefault(); goToNextScreen(); }));
@@ -680,11 +676,6 @@ continueButtons.forEach(btn => btn.addEventListener('click', e => { e.preventDef
 // ==========================================
 // FINAL SCREEN — NO AUTO-TIMER, MANUAL CLOSE BUTTON
 // ==========================================
-function startFinalCountdown() {
-    // No auto-timer — user stays as long as they want.
-    // The × button in the top-right corner triggers the close modal.
-}
-
 document.getElementById('final-close-btn')?.addEventListener('click', () => {
     showCloseGiftModal();
 });
@@ -719,7 +710,6 @@ function resetToBeginning() {
     snakeDone = false;
     catchDone = false;
     unwrapped = false;
-    noClickCount = 0;
     
     // Reset gift items
     giftFlower.classList.remove('opening');
@@ -732,16 +722,6 @@ function resetToBeginning() {
     // Reset gift wrapper
     giftWrapper.classList.remove('unwrapping');
     clickPrompt.classList.remove('hidden');
-    
-    // Reset Yes/No buttons
-    if (yesBtn) yesBtn.style.transform = 'scale(1)';
-    if (noBtn) {
-        noBtn.style.position = '';
-        noBtn.style.left = '';
-        noBtn.style.top = '';
-        noBtn.style.transform = 'scale(1)';
-        noBtn.querySelector('.btn-text').textContent = 'Not sure';
-    }
     
     // Fade out current screen
     screens[currentScreenIndex].classList.add('fade-out');
