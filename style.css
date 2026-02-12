@@ -344,6 +344,8 @@ body {
     border: 3px solid #6b4984; border-radius: 10px; background: #fff;
     box-shadow: 0 8px 30px rgba(107,73,132,0.3); display: block;
     max-width: 100%; height: auto;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Start / Over / Victory overlays */
@@ -861,16 +863,27 @@ body {
 }
 
 /* ==========================================
+   MOBILE/DESKTOP VISIBILITY
+   ========================================== */
+.mobile-only { display: none; }
+.desktop-only { display: block; }
+
+/* ==========================================
    RESPONSIVE
    ========================================== */
 @media (max-width: 768px) {
-    .gifts-row { gap: 30px; }
-    .gift-img-wrap { width: 130px; height: 130px; }
+    .mobile-only { display: block; }
+    .desktop-only { display: none; }
+    
+    .gifts-row { gap: 30px; flex-direction: column; align-items: center; }
+    .gift-img-wrap { width: 200px; height: 200px; }
     .gift-name { font-size: 1.3rem; }
-    .opening-tagline { font-size: 1.6rem; margin-bottom: 35px; }
+    .opening-tagline { font-size: 1.8rem; margin-bottom: 35px; }
     .game-grid { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
     .game-info .section-title { text-align: center; }
-    .game-description { text-align: center; }
+    .game-description { text-align: center; padding: 20px; }
+    .game-description h3 { font-size: 1.6rem; }
+    .game-description p { font-size: 1rem; }
     #snakeCanvas, #catchCanvas { max-width: 100%; width: 100%; height: auto; }
     .vday-card { padding: 45px 30px; }
     .vday-title { font-size: 2.6rem; }
@@ -886,16 +899,16 @@ body {
 
 @media (max-width: 480px) {
     .gifts-row { gap: 20px; }
-    .gift-img-wrap { width: 110px; height: 110px; }
+    .gift-img-wrap { width: 150px; height: 150px; }
     .gift-name { font-size: 1.1rem; }
-    .opening-tagline { font-size: 1.3rem; margin-bottom: 25px; }
+    .opening-tagline { font-size: 1.5rem; margin-bottom: 25px; }
     .gift-cta { font-size: 0.8rem; }
     .vday-title { font-size: 2rem; }
     .vday-name { font-size: 1.3rem; }
     .vday-message { font-size: 0.95rem; }
     .vday-card { padding: 40px 24px; border-radius: 24px; }
     .final-love-message { font-size: 2rem; padding: 0 20px; }
-    .section-title { font-size: 1.8rem; }
+    .section-title { font-size: 2rem; }
     .letter-paper { padding: 28px 20px; }
     .letter-content { font-size: 0.88rem; }
     .letter-signature { font-size: 1.5rem; }
@@ -903,4 +916,6 @@ body {
     .loading-container { padding: 35px 30px; }
     .loading-text { font-size: 1.4rem; }
     .final-close-btn { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 1.5rem; }
+    .game-description p { font-size: 0.9rem; margin-bottom: 10px; }
+    .score-display { font-size: 1.4rem; }
 }

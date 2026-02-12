@@ -1,5 +1,6 @@
 // ==========================================
 // VALENTINE CARD — DOUBLE GIFT EDITION 💜
+// MOBILE-OPTIMIZED VERSION
 // ==========================================
 
 // ---- Screen Order ----
@@ -370,7 +371,7 @@ function initValentineScreen() {
 }
 
 // ==========================================
-// SNAKE GAME
+// SNAKE GAME - WITH MOBILE TOUCH CONTROLS
 // ==========================================
 const GRID_SIZE = 30, TILE_COUNT = 20, SNAKE_WIN = 3, SNAKE_SPEED = 200;
 let snakeCanvas, snakeCtx, snake=[], food={}, dir='RIGHT', nextDir='RIGHT';
@@ -381,6 +382,12 @@ const restartGameBtn = document.getElementById('restart-game-btn');
 const gameStartEl    = document.getElementById('game-start');
 const gameOverEl     = document.getElementById('game-over');
 const gameVictoryEl  = document.getElementById('game-victory');
+
+// Touch control variables
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
 
 function initSnakeGame() {
     snakeCanvas = document.getElementById('snakeCanvas');
@@ -396,6 +403,52 @@ function initSnakeGame() {
     gameVictoryEl.classList.add('hidden');
     placeSnakeFood();
     drawSnake();
+    
+    // Add touch event listeners for mobile
+    snakeCanvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    snakeCanvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+}
+
+function handleTouchStart(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+}
+
+function handleTouchEnd(e) {
+    e.preventDefault();
+    const touch = e.changedTouches[0];
+    touchEndX = touch.clientX;
+    touchEndY = touch.clientY;
+    handleSwipe();
+}
+
+function handleSwipe() {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const minSwipeDistance = 30;
+    
+    // Determine swipe direction
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (Math.abs(deltaX) > minSwipeDistance) {
+            if (deltaX > 0 && dir !== 'LEFT') {
+                nextDir = 'RIGHT';
+            } else if (deltaX < 0 && dir !== 'RIGHT') {
+                nextDir = 'LEFT';
+            }
+        }
+    } else {
+        // Vertical swipe
+        if (Math.abs(deltaY) > minSwipeDistance) {
+            if (deltaY > 0 && dir !== 'UP') {
+                nextDir = 'DOWN';
+            } else if (deltaY < 0 && dir !== 'DOWN') {
+                nextDir = 'UP';
+            }
+        }
+    }
 }
 
 function startSnake() {
@@ -441,6 +494,7 @@ function drawSnake() {
 
 function updateSnakeScore() { const el=document.getElementById('score'); if(el) el.textContent=snakeScore; }
 
+// Keyboard controls for desktop
 document.addEventListener('keydown', e => {
     const map={'ArrowUp':'UP','ArrowDown':'DOWN','ArrowLeft':'LEFT','ArrowRight':'RIGHT'};
     if (map[e.key]) { const opp={UP:'DOWN',DOWN:'UP',LEFT:'RIGHT',RIGHT:'LEFT'}; if(opp[map[e.key]]!==dir) nextDir=map[e.key]; e.preventDefault(); }
@@ -483,7 +537,7 @@ function initCatchGame() {
 
     // Mouse / touch control
     catchCanvas.addEventListener('mousemove', moveCatchBasket);
-    catchCanvas.addEventListener('touchmove', moveCatchBasketTouch, {passive:true});
+    catchCanvas.addEventListener('touchmove', moveCatchBasketTouch, {passive:false});
 }
 
 function moveCatchBasket(e) {
@@ -495,6 +549,7 @@ function moveCatchBasket(e) {
 }
 
 function moveCatchBasketTouch(e) {
+    e.preventDefault(); // Prevent scrolling while playing
     if (!catchRunning || !e.touches[0]) return;
     const rect = catchCanvas.getBoundingClientRect();
     const scaleX = catchCanvas.width / rect.width;
