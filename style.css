@@ -8,7 +8,7 @@ body {
     font-family: 'Georgia', 'Palatino', serif;
     background: linear-gradient(135deg, #ffecce 0%, #5d0654 100%);
     min-height: 100vh;
-    overflow: hidden;
+    overflow: auto;
     color: #f4e8d8;
     position: relative;
 }
@@ -44,16 +44,19 @@ body {
     display: flex; justify-content: center; align-items: center;
     opacity: 0; visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .screen.active { opacity: 1; visibility: visible; }
 .screen.fade-out { opacity: 0; }
 
 .screen-content {
-    text-align: center; height: 100%; width: 100%;
+    text-align: center; min-height: 100%; width: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     animation: fadeInUp 0.8s ease-out;
+    padding: 20px;
 }
-.screen-content.scrollable { max-height: 100%; overflow-y: auto; overflow-x: hidden; }
+.screen-content.scrollable { max-height: none; overflow-y: visible; overflow-x: hidden; }
 
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -879,7 +882,8 @@ body {
     .gift-img-wrap { width: 200px; height: 200px; }
     .gift-name { font-size: 1.3rem; }
     .opening-tagline { font-size: 1.8rem; margin-bottom: 35px; }
-    .game-grid { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+    .game-grid { grid-template-columns: 1fr; gap: 20px; padding: 20px; min-height: auto; }
+    .game-info { margin-bottom: 20px; }
     .game-info .section-title { text-align: center; }
     .game-description { text-align: center; padding: 20px; }
     .game-description h3 { font-size: 1.6rem; }
@@ -908,7 +912,7 @@ body {
     .vday-message { font-size: 0.95rem; }
     .vday-card { padding: 40px 24px; border-radius: 24px; }
     .final-love-message { font-size: 2rem; padding: 0 20px; }
-    .section-title { font-size: 2rem; }
+    .section-title { font-size: 2rem; margin-bottom: 1rem; }
     .letter-paper { padding: 28px 20px; }
     .letter-content { font-size: 0.88rem; }
     .letter-signature { font-size: 1.5rem; }
@@ -917,5 +921,8 @@ body {
     .loading-text { font-size: 1.4rem; }
     .final-close-btn { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 1.5rem; }
     .game-description p { font-size: 0.9rem; margin-bottom: 10px; }
+    .game-description { padding: 15px; }
+    .game-stats { padding: 15px 20px; }
     .score-display { font-size: 1.4rem; }
+    .game-grid { padding: 15px 10px; gap: 15px; }
 }
