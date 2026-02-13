@@ -664,7 +664,7 @@ body {
 }
 .letter-paper::after { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; border: 1px solid rgba(232,180,240,0.2); pointer-events: none; }
 .wax-seal { position: absolute; top: -25px; right: 35px; width: 50px; height: 50px; background: linear-gradient(135deg, #e8b4f0, #d89ee8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 0 4px 15px rgba(107,73,132,0.4); z-index: 2; border: 3px solid rgba(183,148,198,0.8); }
-.letter-content { color: #3a2847; line-height: 1.7; font-size: 1rem; position: relative; z-index: 1; text-align: justify; }
+.letter-content { color: #3a2847; line-height: 1.7; font-size: 1rem; position: relative; z-index: 1; text-align: left; }
 .letter-date { text-align: right; font-style: italic; color: #8b7355; margin-bottom: 25px; font-size: 0.95rem; }
 .letter-greeting { font-size: 1.25rem; margin-bottom: 20px; color: #6b4984; font-family: 'Brush Script MT', cursive; }
 .letter-content p { margin-bottom: 15px; text-indent: 35px; }
@@ -748,7 +748,7 @@ body {
    ========================================== */
 .hanging-rope { width: 100%; height: 3px; background: #8b7355; margin-bottom: 40px; }
 .polaroid-grid-container { width: 100%; margin-bottom: 40px; }
-.polaroid-grid { display: flex; gap: 30px; animation: scroll 20s linear infinite; }
+.polaroid-grid { display: flex; gap: 30px; animation: scroll 12s linear infinite; }
 @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 .polaroid-wrapper { position: relative; flex-shrink: 0; }
 .clothespin { position: absolute; top: -45px; left: 50%; transform: translateX(-50%); width: 30px; height: 60px; background: #8b7355; border-radius: 2px; z-index: 2; }
@@ -892,7 +892,9 @@ body {
     .vday-card { padding: 45px 30px; }
     .vday-title { font-size: 2.6rem; }
     .vday-name { font-size: 1.6rem; }
-    .letter-paper { padding: 35px 25px; margin: 15px; }
+    .letter-paper { padding: 35px 25px; margin: 15px; margin-top: 300px; }
+    .letter-content p { text-indent: 0; }
+    .letter-content { text-align: left; }
     .final-love-message { font-size: 2.5rem; }
     .polaroid { width: 200px; }
     .polaroid-image { height: 170px; }
@@ -913,8 +915,10 @@ body {
     .vday-card { padding: 40px 24px; border-radius: 24px; }
     .final-love-message { font-size: 2rem; padding: 0 20px; }
     .section-title { font-size: 2rem; margin-bottom: 1rem; }
-    .letter-paper { padding: 28px 20px; }
-    .letter-content { font-size: 0.88rem; }
+    .letter-paper { padding: 25px 20px; }
+    .letter-content { font-size: 0.95rem; line-height: 1.8; }
+    .letter-content p { text-indent: 0; margin-bottom: 18px; }
+    .letter-greeting { font-size: 1.1rem; }
     .letter-signature { font-size: 1.5rem; }
     .loading-bar-container { width: 250px; }
     .loading-container { padding: 35px 30px; }
