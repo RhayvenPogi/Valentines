@@ -917,7 +917,7 @@ body {
     .vday-card { padding: 45px 30px; }
     .vday-title { font-size: 2.6rem; }
     .vday-name { font-size: 1.6rem; }
-    .letter-paper { padding: 35px 25px; margin: 15px; margin-top: 300px;}
+    .letter-paper { padding: 35px 25px; margin: 15px; }
     .letter-content p { text-indent: 0; }
     .letter-content { text-align: left; }
     .final-love-message { font-size: 2.5rem; }
@@ -940,7 +940,7 @@ body {
     .vday-card { padding: 40px 24px; border-radius: 24px; }
     .final-love-message { font-size: 2rem; padding: 0 20px; }
     .section-title { font-size: 2rem; margin-bottom: 1rem; }
-    .letter-paper { padding: 25px 20px; margin-top: 300px;}
+    .letter-paper { padding: 25px 20px; }
     .letter-content { font-size: 0.95rem; line-height: 1.8; }
     .letter-content p { text-indent: 0; margin-bottom: 18px; }
     .letter-greeting { font-size: 1.1rem; }
@@ -954,4 +954,87 @@ body {
     .game-stats { padding: 15px 20px; }
     .score-display { font-size: 1.4rem; }
     .game-grid { padding: 15px 10px; gap: 15px; }
+}
+
+@media (max-width: 360px) {
+    .opening-tagline { font-size: 1.3rem; margin-bottom: 20px; }
+    .gift-img-wrap { width: 120px; height: 120px; }
+    .gift-name { font-size: 1rem; }
+    .gift-cta { font-size: 0.75rem; }
+    .section-title { font-size: 1.8rem; }
+    .game-description h3 { font-size: 1.4rem; }
+    .game-description p { font-size: 0.85rem; margin-bottom: 8px; }
+    .game-description { padding: 12px; }
+    .game-stats { padding: 12px 15px; }
+    .score-display { font-size: 1.2rem; }
+    .vday-title { font-size: 1.8rem; }
+    .vday-name { font-size: 1.2rem; }
+    .vday-message { font-size: 0.9rem; }
+    .vday-card { padding: 35px 20px; }
+    .vday-continue-btn { font-size: 1rem; padding: 14px 35px; }
+    .letter-paper { padding: 20px 15px; }
+    .letter-content { font-size: 0.9rem; }
+    .letter-greeting { font-size: 1rem; }
+    .letter-signature { font-size: 1.3rem; }
+    .final-love-message { font-size: 1.8rem; }
+    .loading-bar-container { width: 220px; }
+    .loading-container { padding: 30px 25px; }
+    .loading-text { font-size: 1.2rem; }
+    .loading-percentage { font-size: 1.3rem; }
+    .polaroid { width: 160px; }
+    .polaroid-image { height: 140px; }
+    .continue-btn { font-size: 1rem; padding: 12px 30px; }
+}
+
+@media (max-width: 320px) {
+    .screen-content { padding: 15px 10px; }
+    .opening-tagline { font-size: 1.2rem; margin-bottom: 15px; }
+    .gift-img-wrap { width: 100px; height: 100px; }
+    .gift-name { font-size: 0.9rem; }
+    .gift-cta { font-size: 0.7rem; }
+    .gifts-row { gap: 15px; }
+    .section-title { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .game-grid { padding: 10px 5px; gap: 12px; }
+    .game-description h3 { font-size: 1.2rem; }
+    .game-description p { font-size: 0.8rem; margin-bottom: 6px; }
+    .game-description { padding: 10px; }
+    .game-stats { padding: 10px 12px; }
+    .score-display { font-size: 1.1rem; }
+    .start-content h3 { font-size: 1.8rem; }
+    .start-content p { font-size: 1rem; }
+    .start-game-btn { font-size: 1.1rem; padding: 14px 30px; }
+    .game-over-text, .victory-text { font-size: 2rem; }
+    .game-score, .victory-message { font-size: 1.1rem; }
+    .vday-heart-icon { font-size: 3.5rem; }
+    .vday-title { font-size: 1.6rem; }
+    .vday-name { font-size: 1.1rem; }
+    .vday-message { font-size: 0.85rem; line-height: 1.6; }
+    .vday-card { padding: 30px 18px; }
+    .vday-continue-btn { font-size: 0.95rem; padding: 12px 30px; }
+    .letter-paper { padding: 18px 12px; }
+    .letter-content { font-size: 0.85rem; line-height: 1.7; }
+    .letter-content p { margin-bottom: 14px; }
+    .letter-greeting { font-size: 0.95rem; }
+    .letter-date { font-size: 0.85rem; }
+    .letter-signature { font-size: 1.2rem; }
+    .wax-seal { width: 40px; height: 40px; font-size: 1.5rem; }
+    .final-love-message { font-size: 1.6rem; padding: 0 15px; }
+    .loading-bar-container { width: 200px; height: 25px; }
+    .loading-container { padding: 25px 20px; }
+    .loading-text { font-size: 1.1rem; }
+    .loading-percentage { font-size: 1.2rem; }
+    .loading-spinner { width: 60px; height: 60px; border-width: 6px; }
+    .polaroid { width: 140px; padding: 12px; padding-bottom: 80px; }
+    .polaroid-image { height: 120px; }
+    .polaroid-grid { gap: 20px; }
+    .continue-btn { font-size: 0.95rem; padding: 12px 25px; margin-top: 25px; }
+    .final-close-btn { top: 10px; right: 10px; width: 36px; height: 36px; font-size: 1.3rem; }
+    .close-gift-card { padding: 30px 25px; }
+    .close-gift-title { font-size: 1.8rem; }
+    .close-gift-subtitle { font-size: 0.95rem; }
+    .close-gift-btn { font-size: 1rem; padding: 14px 30px; min-width: 120px; }
+    .bow-center { width: 100px; height: 100px; }
+    .bow-loop { width: 120px; height: 150px; }
+    .ribbon-vertical { width: 100px; }
+    .ribbon-horizontal { height: 100px; }
 }
